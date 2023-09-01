@@ -1,16 +1,19 @@
 const express = require("express");
+
 const {
   listContacts,
   getContactById,
   removeContact,
   addContact,
   updateContact,
+  updateStatusContact,
 } = require("../../models/contacts.js");
+
 const {
   addContactSchema,
   updateContactSchema,
+  updateStatusSchema,
 } = require("../../schemas/contactsSchema");
-
 
 const router = express.Router();
 
@@ -80,5 +83,20 @@ router.put("/:contactId", async (req, res, next) => {
   }
 });
 
+
+router.patch("/:contactId/favorite", async (req, res, next) => {
+  try {
+    const { error } = updateStatusSchema.validate(req.body);
+    if (typeof error !== "undefined") {
+      res.status(404).send(error.details[0].message);
+      return;
+    }
+    const { contactId } = req.params;
+    const updatedContact = await updateStatusContact(contactId, req.body);
+    res.status(200).json(updatedContact);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+});
 
 module.exports = router;
