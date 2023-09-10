@@ -1,4 +1,4 @@
-const HttpError = require('./HttpError');
+const HttpError = require('../utils/HttpError');
 
 const validateBody = (validationSchema) => {
   return (req, res, next) => {

@@ -1,8 +1,17 @@
 const { Contact } = require('../models/contact');
-const HttpError = require('../utils/HttpError');
+const { HttpError } = require('../utils');
 
-const listContacts = async () => {
-  const contactList = await Contact.find();
+const listContacts = async (owner, query) => {
+  const { page = 1, limit = 10, favorite = false } = query;
+  const skip = (page - 1) * limit;
+  const contactList = await Contact.find({ owner }, '-createdAt -updatedAt ', { skip, limit }).populate(
+    'owner',
+    'name email'
+  );
+  if (favorite) {
+    return contactList.filter((contact) => contact.favorite === true);
+  }
+  console.log(contactList);
   return contactList;
 };
 
@@ -22,8 +31,8 @@ const removeContact = async (contactId) => {
   return deletedContact;
 };
 
-const addContact = async (body) => {
-  return await Contact.create(body);
+const addContact = async (body, owner) => {
+  return await Contact.create({ ...body, owner });
 };
 
 const updateContact = async (contactId, body) => {

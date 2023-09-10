@@ -5,12 +5,13 @@ const {
   addContact,
   updateContact,
   updateStatusContact,
-} = require("../services/contacts.js");
-
+} = require('../services');
 
 const listContactsController = async (req, res, next) => {
+  console.log(req.user);
+  const { _id: owner } = req.user;
   try {
-    const contactList = await listContacts();
+    const contactList = await listContacts(owner, req.query);
     res.status(200).json(contactList);
   } catch (error) {
     next(error);
@@ -38,8 +39,9 @@ const removeContactController = async (req, res) => {
 };
 
 const addContactController = async (req, res, next) => {
+  const { _id: owner } = req.user;
   try {
-    const newContact = await addContact(req.body);
+    const newContact = await addContact(req.body, owner);
     res.status(201).send(newContact);
   } catch (error) {
     next(error);
