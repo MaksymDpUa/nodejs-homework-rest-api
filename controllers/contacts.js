@@ -5,15 +5,7 @@ const {
   addContact,
   updateContact,
   updateStatusContact,
-} = require('../services/contacts.js');
-
-// const getAll = async (req, res) => {
-//   const { _id: owner } = req.user;
-//   const { page = 1, limit = 10 } = req.query;
-//   const skip = (page - 1) * limit;
-//   const result = await Book.find({ owner }, '-createdAt -updatedAt', { skip, limit }).populate('owner', 'name email');
-//   res.json(result);
-// };
+} = require('../services');
 
 const listContactsController = async (req, res, next) => {
   console.log(req.user);
@@ -55,11 +47,7 @@ const addContactController = async (req, res, next) => {
     next(error);
   }
 };
-// const add = async (req, res) => {
-//   const { _id: owner } = req.user;
-//   const result = await Book.create({ ...req.body, owner });
-//   res.status(201).json(result);
-// };
+
 const updateContactController = async (req, res) => {
   try {
     const { contactId } = req.params;

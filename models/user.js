@@ -1,7 +1,5 @@
 const { Schema, model } = require('mongoose');
-const {emailRegexp} = require('../utils/regexps')
-
-// const emailRegexp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+const { emailRegexp, subscriptionList } = require('../utils');
 
 const contactSchema = new Schema(
   {
@@ -18,7 +16,7 @@ const contactSchema = new Schema(
     },
     subscription: {
       type: String,
-      enum: ['starter', 'pro', 'business'],
+      enum: subscriptionList,
       default: 'starter',
     },
     token: String,

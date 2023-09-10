@@ -24,7 +24,8 @@ router.put('/:contactId', authenticate, validateBody(updateContactSchema), updat
 
 router.patch(
   '/:contactId/favorite',
-  authenticate, validateBody(updateContactFavoriteSchema),
+  authenticate,
+  validateBody(updateContactFavoriteSchema),
   updateStatusContactController
 );
 
