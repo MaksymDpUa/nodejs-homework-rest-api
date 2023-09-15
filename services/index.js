@@ -1,4 +1,4 @@
-const { register, login, logout, updateSubscription } = require('./users');
+const { register, login, logout, updateSubscription, updateAvatar } = require('./users');
 const {
   listContacts,
   getContactById,
@@ -19,4 +19,5 @@ module.exports = {
   addContact,
   updateContact,
   updateStatusContact,
+  updateAvatar,
 };

@@ -1,4 +1,4 @@
-const { register, login, logout, updateSubscription } = require('../services');
+const { register, login, logout, updateSubscription, updateAvatar } = require('../services');
 
 const registerController = async (req, res, next) => {
   try {
@@ -15,7 +15,7 @@ const registerController = async (req, res, next) => {
 const loginController = async (req, res, next) => {
   try {
     const result = await login(req.body);
-    res.json(result);
+    res.status(200).json(result);
   } catch (error) {
     next(error);
   }
@@ -47,10 +47,22 @@ const updateSubscriptionController = async (req, res, next) => {
   }
 };
 
+const updateAvatarController = async (req, res, next) => {
+  try {
+    const avatarURL = await updateAvatar(req);
+    res.status(200).json({
+      avatarURL,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   registerController,
   loginController,
   getCurrentController,
   logoutController,
   updateSubscriptionController,
+  updateAvatarController,
 };

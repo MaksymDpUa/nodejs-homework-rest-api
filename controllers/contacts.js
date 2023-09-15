@@ -8,7 +8,6 @@ const {
 } = require('../services');
 
 const listContactsController = async (req, res, next) => {
-  console.log(req.user);
   const { _id: owner } = req.user;
   try {
     const contactList = await listContacts(owner, req.query);
