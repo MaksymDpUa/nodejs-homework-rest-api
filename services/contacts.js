@@ -26,7 +26,7 @@ const getContactById = async (contactId) => {
 const removeContact = async (contactId) => {
   const deletedContact = await Contact.findByIdAndRemove(contactId);
   if (!deletedContact) {
-    throw new HttpError('This contact does not exist');
+    throw new HttpError(404, 'This contact does not exist');
   }
   return deletedContact;
 };
@@ -40,7 +40,7 @@ const updateContact = async (contactId, body) => {
     new: true,
   });
   if (!updatedContact) {
-    throw new HttpError('This contact does not exist');
+    throw new HttpError(400, 'This contact does not exist');
   }
   return updatedContact;
 };

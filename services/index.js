@@ -1,4 +1,12 @@
-const { register, login, logout, updateSubscription, updateAvatar } = require('./users');
+const {
+  register,
+  verifyEmail,
+  resendVerifyEmail,
+  login,
+  logout,
+  updateSubscription,
+  updateAvatar,
+} = require('./users');
 const {
   listContacts,
   getContactById,
@@ -10,9 +18,12 @@ const {
 
 module.exports = {
   register,
+  verifyEmail,
+  resendVerifyEmail,
   login,
   logout,
   updateSubscription,
+  updateAvatar,
   listContacts,
   getContactById,
   removeContact,
